@@ -1,7 +1,20 @@
 #results{
-    display: flexbox;
+    display: flex;
     margin-top: 20px;
     padding: 20px;
     border: 1px solid #ccc;
     background: #f4f4f4;
+    flex-wrap: wrap;
+    justify-content: center;
 } 
+.show{
+    text-align: center;
+    padding: 5px;
+}
+
+h2{
+    font-family: Kanit;
+    font-weight:300;
+    font-size:20px;
+    margin:2px 2px;
+}
