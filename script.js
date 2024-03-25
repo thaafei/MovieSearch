@@ -3,6 +3,7 @@ searchInput = document.querySelector('input')
 
 var prevSearch = false;
 
+
 function searchQuery(){
         const query = searchInput.value
         searchResults = axios.get(`https://api.tvmaze.com/search/shows?q=${query}`)
@@ -24,3 +25,8 @@ function searchQuery(){
 }
 
 searchButton.addEventListener('click', searchQuery)
+document.addEventListener('keypress', function(e){
+    if (e.key === 'Enter'){
+        searchQuery()
+    }
+})
