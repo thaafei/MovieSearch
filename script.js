@@ -24,9 +24,20 @@ function searchQuery(){
         })
 }
 
+function moreInfo(){
+    const query = searchInput.value
+    searchResults = axios.get(`https://api.tvmaze.com/search/shows?q=${query}`)
+    .then((response) => {
+        const name = response.data.show;
+        const score = response.data.score;
+        const summary = response.data.summary;
+        const image = response.data.image.medium;
+    })
+}
 searchButton.addEventListener('click', searchQuery)
 document.addEventListener('keypress', function(e){
     if (e.key === 'Enter'){
         searchQuery()
     }
 })
+
