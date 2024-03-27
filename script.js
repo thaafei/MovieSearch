@@ -16,6 +16,7 @@ function searchQuery(){
             for (let i = 0; i < response.data.length; i++){
                 const show = response.data[i].show
                 newShow = document.createElement('div')
+                newShow.id = show.id
                 newShow.classList.add('show')
                 newShow.innerHTML = `<img src="${show.image.medium}">
                                     <h2>${show.name}</h2>`
@@ -24,16 +25,17 @@ function searchQuery(){
         })
 }
 
-function moreInfo(){
-    const query = searchInput.value
-    searchResults = axios.get(`https://api.tvmaze.com/search/shows?q=${query}`)
-    .then((response) => {
-        const name = response.data.show;
-        const score = response.data.score;
-        const summary = response.data.summary;
-        const image = response.data.image.medium;
-    })
+function moreInfo(showID){
+    console.log(showID)
+    //searchResults = axios.get(`https://api.tvmaze.com/search/shows?q=${query}`)
+    //.then((response) => {
+    //    const name = response.data.show;
+    //    const score = response.data.score;
+    //    const summary = response.data.summary;
+    //    const image = response.data.image.medium;
+    //})
 }
+//searching for shows 
 searchButton.addEventListener('click', searchQuery)
 document.addEventListener('keypress', function(e){
     if (e.key === 'Enter'){
@@ -41,3 +43,9 @@ document.addEventListener('keypress', function(e){
     }
 })
 
+//expanding show details
+document.getElementById('results').addEventListener('click', function(e){
+    if (e.target.classList.contains('show')){
+        moreInfo(e.target.id)
+    }
+})
