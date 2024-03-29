@@ -2,7 +2,7 @@ searchButton = document.querySelector('button')
 searchInput = document.querySelector('input')
 
 var prevSearch = false;
-
+var sideWindow = false;
 
 function searchQuery(){
         const query = searchInput.value
@@ -18,7 +18,11 @@ function searchQuery(){
                 newShow = document.createElement('div')
                 newShow.id = show.id
                 newShow.classList.add('show')
-                newShow.innerHTML = `<img src="${show.image.medium}">
+                var image = show.image.medium;
+                if (image === null){
+                    image = 'https://via.placeholder.com/210x295'
+                }
+                newShow.innerHTML = `<img src="${image}">
                                     <h2>${show.name}</h2>`
                 document.querySelector('#results').appendChild(newShow)
             }
@@ -26,14 +30,24 @@ function searchQuery(){
 }
 
 function moreInfo(showID){
-    console.log(showID)
-    //searchResults = axios.get(`https://api.tvmaze.com/search/shows?q=${query}`)
-    //.then((response) => {
-    //    const name = response.data.show;
-    //    const score = response.data.score;
-    //    const summary = response.data.summary;
-    //    const image = response.data.image.medium;
-    //})
+    var name, rating, summary, image;
+    searchResults = axios.get(`https://api.tvmaze.com/shows/${showID}`)
+    .then((response) => {
+        console.log(response)
+        sideWindow = true;
+        name = response.data.name;
+        rating = response.data.rating.average;
+        summary = response.data.summary;
+        image = response.data.image.medium;
+    })
+
+    moreInfoWindow = document.createElement('div')
+    moreInfoWindow.id = 'moreInfo'
+    moreInfoWindow.innerHTML = `<h2>${name}</h2>
+                                <p>${rating}</p>
+                                <img src="${image}">
+                                <p>${summary}</p>`
+    document.querySelector('#result-box').appendChild(moreInfoWindow)
 }
 //searching for shows 
 searchButton.addEventListener('click', searchQuery)
@@ -45,7 +59,8 @@ document.addEventListener('keypress', function(e){
 
 //expanding show details
 document.getElementById('results').addEventListener('click', function(e){
-    if (e.target.classList.contains('show')){
-        moreInfo(e.target.id)
+    if (e.target.parentElement.classList.contains('show')){
+        var showID = e.target.parentElement.id
+        moreInfo(showID)
     }
 })
