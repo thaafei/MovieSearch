@@ -2,6 +2,8 @@
     display: flex;
     margin-top: 20px;
     padding: 20px;
+    border-color: black;
+    border-width: 1px;
     
     flex-wrap: wrap;
     justify-content: center;
@@ -24,7 +26,11 @@ h1{
     font-stretch: ultra-expanded;
     margin-bottom: 3px;
 }
-
+#search-bar{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 input{
     padding:0;
     margin:0;
@@ -43,6 +49,7 @@ button{
     width:20%
 }   
 #searchButton{
+    align-self: center;
     padding-left:0;
     margin-left:0;
     background: #ffe8d6;
@@ -58,5 +65,12 @@ body{
 
 #result-box{
     display:flex;
-    
+    align-self: center;
+}
+
+.moreInfo{
+    width: 35%;
+    margin: 10px;
+    padding:10px;
+    border-style:dashed;
 }
